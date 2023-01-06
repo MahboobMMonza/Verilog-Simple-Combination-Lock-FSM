@@ -1,11 +1,8 @@
-module match(inps, comb, matches);
+module matches(inps, comb, match);
 	input [3:0] comb, inps;
-	// Remember the match value for a clock cycle to
-	// regulate matching. Should not pose issue since
-	// clock cycle is much faster than human speed.
-	output reg matches;
-	always @(comb, inps)
-	begin
-		matches = (inps == comb);
-	end
+	// Just check for a match. Should not cause an issue since
+	// clock speed is too fast for intermediate change between
+	// checks in FSM.
+	output match;
+	assign match = (inps == combs);
 endmodule
