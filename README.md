@@ -178,7 +178,5 @@ values.](Artifacts/ComboLockSimulation_After.png)
 
 ###### Simulation status after running all tests. The output values are present on the 'disp' vector values.
 
-A video showing an [expanded view of the simulation results](Artifacts/ComboLockVWFExpanded.mp4) is also available.
-
 A detailed guide on how to go about testing each sub-circuit individually is available in the
 [TestingGuide.md](TestingGuide.md) file.
