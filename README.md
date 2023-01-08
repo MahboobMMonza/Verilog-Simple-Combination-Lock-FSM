@@ -81,21 +81,16 @@ flip-flops.
 
 The combination lock can be implemented using 5 states to accurately determine the correct sequence of actions. In
 addition to the 4 states mentioned in the [Design Functional Specifications](#functional-specifications) (ignoring the
-_**initial** locked_ state), an intermediary _incorrect_ state is used to track when a single incorrect attempt has been
-made. This means that a 3-bit register must be used to track the current state. Another 4-bit register is needed to
-store the current lock combination code. The system could be optimized to use a 2-bit register to store the state
-instead by converting this incorrect flag into some kind of input, but this would complicate the logic and the
-optimization is unnecessary for the scale of this circuit.
+_**initial** locked_ state, this will be explained in the [Implementation](#Implementation-1) section), an intermediary
+_incorrect_ state is used to track when a single incorrect attempt has been made. This means that a 3-bit register must
+be used to track the current state. Another 4-bit register is needed to store the current lock combination code. The
+system could be optimized to use a 2-bit register to store the state instead by converting this incorrect flag into some
+kind of input, but this would complicate the logic and the optimization is unnecessary for the scale of this circuit.
 
 One of the main learning points of this circuit is how to apply sequential logic and finite state machines into circuit
 design; implementing the FSM logic is just part of the task. This logic needs to be combined with other sub-circuits to
 determine the 7-segment output, as well as update the password when it changes. Even checking for a correct code
 requires its own sub-circuit.
-
-The _**initial** locked_ state of the lock does not need to have its own special state in the FSM because the default
-code initialization and resetting can be done as part of separate circuitry and logic dealing with storing the
-combination code. The `initial` block is used to set the lock code to `0110` at the very beginning process, and the
-`always` block can reset the stored combination whenever the **Reset** button is pressed.
 
 Since the system uses a 50 MHz clock, timing everything with clock edges produces no noticeable changes for the user,
 while simplifying logic decisions in the design.
@@ -110,16 +105,29 @@ Moore FSM diagram of combination lock logic, with state values outlined. Note th
 denote the locked state. The input logic that determines transitions is also highlighted in light green.
 </figcaption>
 
+There are 5 types of sub-circuits that are being used by the lock to handle different components of the logic:
+
+1. Input conditioning
+2. Input combination match-checking
+3. Next state logic
+4. Password storage and updating logic
+5. Hexadecimal display logic
+
+The _**initial** locked_ state of the lock does not need to have its own special state in the FSM because the default
+code initialization and resetting can be done as part of the sub-circuit dealing with storing the combination code. The
+`initial` block is used to set the lock code to `0110` at the very beginning process, and the `always` block can reset
+the stored combination whenever the **Reset** button is pressed.
+
+Additionally, since the clock speed is faster than human reaction times, the input does not need to be checked for a
+match every time a state change occurs; instead, the match checking process can be placed in a sub-circuit which runs
+beforehand, and the result can be used for state transition.
+
 ![Block diagram implementation of complete circuit. Each sub-circuit logic was abstracted to its own
 block.](ComboLockBlockDiagram.png)
 
 <figcaption>
 Block diagram implementation of complete circuit. Each sub-circuit logic was abstracted to its own block.
 </figcaption>
-
-Since the clock speed is faster than human reaction times, the input does not need to be checked for a match every time
-a state change occurs; instead, the match checking process can be placed in a sub-circuit which runs beforehand, and the
-result can be used for state transition.
 
 ## Testing
 
@@ -132,13 +140,19 @@ testing process should be guided with this in mind.
 Here is a list of guiding questions for testing to ensure the device works as intended:
 
 1. Does open work correctly?
-   * **Change** button press does not affect state?
+    * **Change** button press does not affect state?
 2. Does alarm work correctly for wrong enter or change
-   * Other button presses don't work in alarm state?
+    * Other button presses don't work in alarm state?
 3. Does reset work correctly?
-   * Does the password revert to `0110`
+    * Does the password revert to `0110`?
 4. Does change password work correctly?
-   * Does password change save on **Enter** or **Change** presses?
-5. Does opening after a changed password work correctly?
-6. Does alarm after a changed password work correctly?
-7. Does reset revert to default password?
+    * Does password change save on **Enter** or **Change** presses?
+5. Does the lock open correctly after the password is changed?
+6. Does the alarm work correctly after the password is changed?
+7. Does changing a password after a changed password work correctly?
+8. Does reset revert to default password?
+9. Does input conditioning work properly?
+    * The output should not change if an input combination changes while a button is pressed
+
+### Simulation Results
+
