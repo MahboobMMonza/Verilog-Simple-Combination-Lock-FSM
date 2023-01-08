@@ -70,7 +70,7 @@ with clock edges will not cause issues for users.
 
 #### Implementation
 
-![Moore FSM diagram of input conditioning logic](artifacts/InputConditionFSM.png)
+![Moore FSM diagram of input conditioning logic](Artifacts/InputConditionFSM.png)
 
 <figcaption>Moore FSM diagram of input conditioning logic.</figcaption>
 
@@ -98,7 +98,7 @@ while simplifying logic decisions in the design.
 #### Implementation
 
 ![Moore FSM diagram of combination lock logic, with state values outlined. Note that "ST" is the abbreviation used to
-denote the locked state.](artifacts/ComboLockFSM.png)
+denote the locked state.](Artifacts/ComboLockFSM.png)
 
 <figcaption>
 Moore FSM diagram of combination lock logic, with state values outlined. Note that "ST" is the abbreviation used to
@@ -123,7 +123,7 @@ match every time a state change occurs; instead, the match checking process can 
 beforehand, and the result can be used for state transition.
 
 ![Block diagram implementation of complete circuit. Each sub-circuit logic was abstracted to its own
-block.](artifacts/ComboLockBlockDiagram.png)
+block.](Artifacts/ComboLockBlockDiagram.png)
 
 <figcaption>
 Block diagram implementation of complete circuit. Each sub-circuit logic was abstracted to its own block.
@@ -174,7 +174,7 @@ that the FSM is transitioning between states as expected.
 The following images can be examined to determine exactly what tests are being conducted at each stage.
 
 ![Simulation status before running all tests. The "X" markings across the 'disp' vector indicate that its  status is
-unknown, and it will be calculated at simulation time.](artifacts/ComboLockSimulation_Before.png)
+unknown, and it will be calculated at simulation time.](Artifacts/ComboLockSimulation_Before.png)
 
 <figcaption>
 Simulation status before running all tests. The "X" markings across the 'disp' vector indicate that its status is
@@ -182,13 +182,13 @@ unknown, and it will be calculated at simulation time.
 </figcaption>
 
 ![Simulation status after running all tests. The output values are present on the 'disp' vector
-values.](artifacts/ComboLockSimulation_After.png)
+values.](Artifacts/ComboLockSimulation_After.png)
 
 <figcaption>
 Simulation status after running all tests. The output values are present on the 'disp' vector values.
 </figcaption>
 
-A video showing an [expanded view of the simulation results](artifacts/ComboLockVWFExpanded.mp4) is also available.
+A video showing an [expanded view of the simulation results](Artifacts/ComboLockVWFExpanded.mp4) is also available.
 
 A detailed guide on how to go about testing each sub-circuit individually is available in the
 [TestingGuide.md](TestingGuide.md) file.
