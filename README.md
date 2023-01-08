@@ -72,7 +72,7 @@ with clock edges will not cause issues for users.
 
 ![Moore FSM diagram of input conditioning logic](Artifacts/InputConditionFSM.png)
 
-<figcaption>Moore FSM diagram of input conditioning logic.</figcaption>
+###### Moore FSM diagram of input conditioning logic.
 
 Since there are 3 states to track, a 2-bit register must be used to keep memory. This circuit is implemented using D
 flip-flops.
@@ -100,10 +100,7 @@ while simplifying logic decisions in the design.
 ![Moore FSM diagram of combination lock logic, with state values outlined. Note that "ST" is the abbreviation used to
 denote the locked state.](Artifacts/ComboLockFSM.png)
 
-<figcaption>
-Moore FSM diagram of combination lock logic, with state values outlined. Note that "ST" is the abbreviation used to
-denote the locked state. The input logic that determines transitions is also highlighted in light green.
-</figcaption>
+###### Moore FSM diagram of combination lock logic, with state values outlined. Note that "ST" is the abbreviation used to denote the locked state. The input logic that determines transitions is also highlighted in light green.
 
 There are 5 types of sub-circuits that are being used by the lock to handle different components of the logic:
 
@@ -125,9 +122,7 @@ beforehand, and the result can be used for state transition.
 ![Block diagram implementation of complete circuit. Each sub-circuit logic was abstracted to its own
 block.](Artifacts/ComboLockBlockDiagram.png)
 
-<figcaption>
-Block diagram implementation of complete circuit. Each sub-circuit logic was abstracted to its own block.
-</figcaption>
+###### Block diagram implementation of complete circuit. Each sub-circuit logic was abstracted to its own block.
 
 ## Testing
 
@@ -176,17 +171,12 @@ The following images can be examined to determine exactly what tests are being c
 ![Simulation status before running all tests. The "X" markings across the 'disp' vector indicate that its  status is
 unknown, and it will be calculated at simulation time.](Artifacts/ComboLockSimulation_Before.png)
 
-<figcaption>
-Simulation status before running all tests. The "X" markings across the 'disp' vector indicate that its status is
-unknown, and it will be calculated at simulation time.
-</figcaption>
+###### Simulation status before running all tests. The "X" markings across the 'disp' vector indicate that its status is unknown, and it will be calculated at simulation time.
 
 ![Simulation status after running all tests. The output values are present on the 'disp' vector
 values.](Artifacts/ComboLockSimulation_After.png)
 
-<figcaption>
-Simulation status after running all tests. The output values are present on the 'disp' vector values.
-</figcaption>
+###### Simulation status after running all tests. The output values are present on the 'disp' vector values.
 
 A video showing an [expanded view of the simulation results](Artifacts/ComboLockVWFExpanded.mp4) is also available.
 
