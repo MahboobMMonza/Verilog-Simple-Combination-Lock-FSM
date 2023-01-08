@@ -70,7 +70,7 @@ with clock edges will not cause issues for users.
 
 #### Implementation
 
-![Moore FSM diagram of input conditioning logic](InputConditionFSM.png)
+![Moore FSM diagram of input conditioning logic](artifacts/InputConditionFSM.png)
 
 <figcaption>Moore FSM diagram of input conditioning logic.</figcaption>
 
@@ -98,7 +98,7 @@ while simplifying logic decisions in the design.
 #### Implementation
 
 ![Moore FSM diagram of combination lock logic, with state values outlined. Note that "ST" is the abbreviation used to
-denote the locked state.](ComboLockFSM.png)
+denote the locked state.](artifacts/ComboLockFSM.png)
 
 <figcaption>
 Moore FSM diagram of combination lock logic, with state values outlined. Note that "ST" is the abbreviation used to
@@ -123,7 +123,7 @@ match every time a state change occurs; instead, the match checking process can 
 beforehand, and the result can be used for state transition.
 
 ![Block diagram implementation of complete circuit. Each sub-circuit logic was abstracted to its own
-block.](ComboLockBlockDiagram.png)
+block.](artifacts/ComboLockBlockDiagram.png)
 
 <figcaption>
 Block diagram implementation of complete circuit. Each sub-circuit logic was abstracted to its own block.
@@ -133,26 +133,62 @@ Block diagram implementation of complete circuit. Each sub-circuit logic was abs
 
 Once the circuit is built, it needs to be validated to ensure that everything is working as expected. Each sub-circuit
 needs to be tested individually to ensure that it is working correctly and can be incorporated into the design. The
-testing process should be guided with this in mind.
+testing process should be guided with this in mind; however, for the purpose of brevity, individual tests were excluded
+from this repository and only tests run with the entire circuit built were run, with the success of the tests being
+determined by the output shown by the hexadecimal display.
 
 ### Guiding Questions
 
 Here is a list of guiding questions for testing to ensure the device works as intended:
 
 1. Does open work correctly?
-    * **Change** button press does not affect state?
-2. Does alarm work correctly for wrong enter or change
+    * **Change** button press does not affect state when lock is open?
+2. Does alarm work correctly for wrong combinations given with 2 consecutive **Enter** or **Change** button presses?
     * Other button presses don't work in alarm state?
-3. Does reset work correctly?
+3. Does resetting work correctly?
     * Does the password revert to `0110`?
-4. Does change password work correctly?
+4. Does changing the password work correctly?
     * Does password change save on **Enter** or **Change** presses?
 5. Does the lock open correctly after the password is changed?
 6. Does the alarm work correctly after the password is changed?
 7. Does changing a password after a changed password work correctly?
-8. Does reset revert to default password?
-9. Does input conditioning work properly?
+8. Does input conditioning work properly?
     * The output should not change if an input combination changes while a button is pressed
 
-### Simulation Results
+### Waveform Simulation and Results
 
+To verify that all functional specifications were met, the above criteria was tested in the circuit with functional
+waveform simulations.
+
+The simulation output calculates the values of the 7-segment display. The 7-segment display numbers the topmost segment
+0, then proceeds clockwise around the outer segments, numbering them in increasing order from 1-5, and finally the
+central segment is numbered 6. Based on the Altera board used, the value of `0` indicates that a segment is lit, while a
+value of `1` indicates that it is dim. The combination values and what symbols they represent can be found in the
+comments of the [hex7seg.v](hex7seg.v) code. The 7-segment display values are stored in a vector called `disp`, which
+is shown in the simulations along with each individual segment value, in the order presented previously.
+
+Although using just the 7-segment display output does not show all the states of the lock's FSM, the guiding questions
+that were used for the testing can be used to verify that the circuit is indeed working correctly, which would imply
+that the FSM is transitioning between states as expected.
+
+The following images can be examined to determine exactly what tests are being conducted at each stage.
+
+![Simulation status before running all tests. The "X" markings across the 'disp' vector indicate that its  status is
+unknown, and it will be calculated at simulation time.](artifacts/ComboLockSimulation_Before.png)
+
+<figcaption>
+Simulation status before running all tests. The "X" markings across the 'disp' vector indicate that its status is
+unknown, and it will be calculated at simulation time.
+</figcaption>
+
+![Simulation status after running all tests. The output values are present on the 'disp' vector
+values.](artifacts/ComboLockSimulation_After.png)
+
+<figcaption>
+Simulation status after running all tests. The output values are present on the 'disp' vector values.
+</figcaption>
+
+A video showing an [expanded view of the simulation results](artifacts/ComboLockVWFExpanded.mp4) is also available.
+
+A detailed guide on how to go about testing each sub-circuit individually is available in the
+[TestingGuide.md](TestingGuide.md) file.
