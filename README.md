@@ -11,7 +11,7 @@ board, and follows its specifications with respect to switches, push-buttons and
 
 ### I/O Specifications
 
-* 4 switches implementing a 4-bit binary code key used to unlock the device (initially set to `0110`)
+* 4 switches implementing a 4-bit binary code key used to unlock the device
     * Read left-to-right
     * If 2 successive mismatches occur, the lock enters an alarm state that can only be exited by resetting the device
 * 3 push-button inputs:
