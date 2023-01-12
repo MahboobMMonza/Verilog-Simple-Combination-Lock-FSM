@@ -13,16 +13,16 @@ board, and follows its specifications with respect to switches, push-buttons and
 
 * 4 switches implementing a 4-bit binary code key used to unlock the device
     * Read left-to-right
-    * If 2 successive mismatches occur, the lock enters an alarm state that can only be exited by resetting the device
 * 3 push-button inputs:
-    * **Enter** (implemented as active HIGH)
-    * **Change** (implemented as active HIGH)
-    * **Reset** (implemented as active LOW)
+      * **Enter** (implemented as active HIGH)
+      * **Change** (implemented as active HIGH)
+      * **Reset** (implemented as active LOW)
 * All push-button inputs are _conditioned_
-    * Input conditioning must also be implemented as a sub-circuit
+      * Input conditioning must also be implemented as a sub-circuit
 * Hexadecimal display to show the state of the lock
 * Device runs on a 50 MHz clock
 * It is assumed that only one button is pressed at a time
+* If 2 successive mismatches occur, the lock enters an alarm state that can only be exited by resetting the device
 
 ### Functional Specifications
 
@@ -118,6 +118,10 @@ the stored combination whenever the **Reset** button is pressed.
 Additionally, since the clock speed is faster than human reaction times, the input does not need to be checked for a
 match every time a state change occurs; instead, the match checking process can be placed in a sub-circuit which runs
 beforehand, and the result can be used for state transition.
+
+The password can be changed or reset at any clock cycle, a sub-circuit needs to be created to deal with this event.
+Since the changing requires the state of the FSM as an input, the logic will typically execute after the next state is
+determined. As a result, this sub-circuit runs after the next state logic.
 
 ![Block diagram implementation of complete circuit. Each sub-circuit logic was abstracted to its own
 block.](Artifacts/ComboLockBlockDiagram.png)
