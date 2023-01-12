@@ -14,11 +14,11 @@ board, and follows its specifications with respect to switches, push-buttons and
 * 4 switches implementing a 4-bit binary code key used to unlock the device
     * Read left-to-right
 * 3 push-button inputs:
-      * **Enter** (implemented as active HIGH)
-      * **Change** (implemented as active HIGH)
-      * **Reset** (implemented as active LOW)
+    * **Enter** (implemented as active HIGH)
+    * **Change** (implemented as active HIGH)
+    * **Reset** (implemented as active LOW)
 * All push-button inputs are _conditioned_
-      * Input conditioning must also be implemented as a sub-circuit
+    * Input conditioning must also be implemented as a sub-circuit
 * Hexadecimal display to show the state of the lock
 * Device runs on a 50 MHz clock
 * It is assumed that only one button is pressed at a time
